@@ -1,0 +1,82 @@
+---
+title: "AS"
+author: "Aruna"
+date: "28 November 2018"
+output: word_document
+---
+```{r}
+# Assignment 9.2
+# 1. calculate the p-value for the test in problem no 2
+
+dfUCB = as.data.frame(UCBAdmissions)
+
+#check the total frequency of admission
+xtabs(Freq ~Admit, data = dfUCB)
+
+AdmitRate = 1755/(1755+2771)
+TestStatistic = (AdmitRate-0.4)/sqrt(0.4*0.6/(1755+2771))
+TestStatistic 
+# for this test statistics calculate the p value
+  pnorm(-1.68)
+  # the P value is 0.04
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# 2. How do you test the proportions and compare against hypothetical pros ? 
+#    Test Hypothesis : Porportion of automatic cars is 40%
+
+  # Hypothesis
+  # H0 : p = 0.4 and 
+  # H1 : p ! = 0.4. 
+  
+  # P - 0.4 / sqrt(0.4(1-0.4)/n)
+  #Significance Level to be used is alpha = 0.05
+library(readr)
+mtcarscopy <- read_csv("F:/R Notes/29Sep/mtcarscopy.csv")
+View(mtcarscopy)
+
+#    Car Engine Transmission (0 = automatic, 1 = manual) 
+dfmtcars = mtcarscopy
+
+
+head(dfmtcars)
+
+table(dfmtcars$am)
+
+Automatic_car = 19/(19+13)
+TestStatistic1 = (Automatic_car-0.4)/sqrt(0.4*0.6/(19+13))
+TestStatistic1
+
+#Significance Level to be used is alpha = 0.05
+qnorm(0.95)
+
+if(TestStatistic1 < -1*pnorm(0.95)){
+  print("Reject NULL hypothesis for 95% confidence") 
+} else print("Accept NULL hypothesis for 95% confidence")
+
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
